@@ -25,13 +25,13 @@ public class Bid {
 	private Long id;
 
 	@NotNull
-	private BigDecimal valor;
+	private BigDecimal bidValue;
 
 	@NotNull
-	private LocalDate data;
+	private LocalDate bidDate;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	private User user;
+	private User bidUser;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
