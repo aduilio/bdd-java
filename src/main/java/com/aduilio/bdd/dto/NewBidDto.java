@@ -1,7 +1,9 @@
 package com.aduilio.bdd.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
+import com.aduilio.bdd.model.Auction;
 import com.aduilio.bdd.model.Bid;
 import com.aduilio.bdd.model.User;
 
@@ -20,10 +22,12 @@ public class NewBidDto {
 
 	private Long auctionId;
 
-	public Bid toBid(final User user) {
+	public Bid toBid(final User user, final Auction auction) {
 		return Bid.builder()
 				.bidUser(user)
 				.bidValue(value)
+				.bidDate(LocalDate.now())
+				.auction(auction)
 				.build();
 	}
 

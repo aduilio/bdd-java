@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/auctions")
 @RequiredArgsConstructor
-public class AuctionsController {
+public class AuctionController {
 
 	private final AuctionRepository auctionRepository;
 	private final UserRepository userRepository;

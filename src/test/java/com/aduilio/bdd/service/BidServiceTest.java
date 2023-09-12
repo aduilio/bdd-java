@@ -1,7 +1,6 @@
 package com.aduilio.bdd.service;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,35 +59,31 @@ public class BidServiceTest {
 				.name(USER_NAME)
 				.build();
 
-		bid = newBidDto.toBid(user);
+		bid = newBidDto.toBid(user, auction);
 	}
 
 	@Test
 	public void newBidShouldAcceptBid() {
-		Mockito.when(auctionRepository.findById(auction.getId()))
-				.thenReturn(Optional.of(auction));
 		Mockito.when(bidRepository.save(bid))
 				.thenReturn(bid);
 		Mockito.when(userRepository.getUserByUsername(USER_NAME))
 				.thenReturn(user);
 
-		final boolean acceptBid = service.newBid(newBidDto, USER_NAME);
+		final boolean acceptBid = service.newBid(newBidDto, auction, USER_NAME);
 
 		Assertions.assertTrue(acceptBid);
 	}
 
 	@Test
 	public void newBidShouldNotAcceptDuplicated() {
-		Mockito.when(auctionRepository.findById(auction.getId()))
-				.thenReturn(Optional.of(auction));
 		Mockito.when(bidRepository.save(bid))
 				.thenReturn(bid);
 		Mockito.when(userRepository.getUserByUsername(USER_NAME))
 				.thenReturn(user);
 
-		service.newBid(newBidDto, USER_NAME);
+		service.newBid(newBidDto, auction, USER_NAME);
 
-		final boolean acceptBid = service.newBid(newBidDto, USER_NAME);
+		final boolean acceptBid = service.newBid(newBidDto, auction, USER_NAME);
 
 		Assertions.assertFalse(acceptBid);
 	}

@@ -1,69 +1,70 @@
 <html>
-	<head th:replace="~{base :: head}"></head>
-	<body>
-		<div th:replace="~{base :: logo}"></div>
-		
-		<div class="container">
-			<div th:replace="~{base :: title('Auction details', '/auctions')}"></div>
-			
-			<div class="alert alert-primary" role="alert" th:if="${message}">
-			  <span th:text="${message}"></span>
-			</div>
+    <head th:replace="~{base :: head}"></head>
+    <body>
+        <div th:replace="~{base :: logo}"></div>
+        
+        <div class="container">
+            <div th:replace="~{base :: title('Auction details', '/auctions')}"></div>
+            
+            <div class="alert alert-primary" role="alert" th:if="${message}">
+                <span th:text="${message}"></span>
+            </div>
 
-			<div class="alert alert-danger" role="alert" th:if="${error}">
-			  <span th:text="${error}"></span>
-			</div>
-				
-			<div class="card">
-			  <div class="card-body">
-			    <h5 class="card-title" th:text="${auction.name}">Nome</h5>
-			    <h6 class="card-subtitle mb-1 text-muted">
-			     <span th:if="${auction.initialValue} != null" th:text="${'US$ ' + #numbers.formatDecimal(auction.initialValue, 1,'POINT',2,'COMMA')}">
-			     </span>
-			    </h6>
-			    <p class="card-text" th:text="${auction.user.name} + ', ' + ${#temporals.format(auction.openingDate, 'dd/MM/yyyy')}"></p>
-			  </div>
-			</div>
-			
-			<div class="card mt-2">
-				<form class="card-body" th:action="@{/bids}" method="post" th:object="${bid}">
-					<div class="input-group">
-					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="">New bid:</span>
-					  </div>
-						<input type="text" th:field="*{value}" class="form-control" placeholder="Value" 
-								th:classappend="${#fields.hasErrors('value')} ? is-invalid : valid" autofocus="autofocus"/>
-						<button class="btn btn-outline-primary" type="submit" id="btnDarLance">Add bid</button>
-						<div class="invalid-feedback" th:errors="*{value}" >
-					        Enter a valid value
-					    </div>
-					</div>
-				<div><input type="hidden" th:value="${auction.id}" id="auctionId" name="auctionId"/></div>
-					  
-				</form>
-			</div>	
-			
-			<div class="card mt-2" th:if="${!auction.bids.empty}">
-			  <div class="card-body">
-					<h5 class="card-title">Bids</h5>
-					<table id="bids" class="table">
-						<tr bgcolor="#efefef">
-							<td>Date</td>
-							<td>User</td>
-							<td>Value</td>
-						</tr>
-						 
-						<tr th:each="lance : ${auction.bids}">
-							<td scope="row" th:text="${#temporals.format(bid.bidDate, 'dd/MM/yyyy')}"></td>
-							<td th:text="${bid.user.name}"></td>
-							<td th:text="${'US$ ' + #numbers.formatDecimal(bid.valor, 1,'POINT',2,'COMMA')}"></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			
-			<a class="btn btn-primary mt-2" th:href="@{'/auctions'}" role="button">Back</a>
-			
-		</div>
+            <div class="alert alert-danger" role="alert" th:if="${error}">
+                <span th:text="${error}"></span>
+            </div>
+                
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" th:text="${auction.name}"></h4>
+                    <h5 class="card-subtitle mb-1 text-muted">
+                        <span th:if="${auction.initialValue} != null" th:text="${'US$ ' + #numbers.formatDecimal(auction.initialValue, 1, 'POINT', 2, 'COMMA')}">
+                        </span>
+                    </h5>
+                    <p class="card-text" th:text="${#temporals.format(auction.openingDate, 'dd/MM/yyyy')}"></p>
+                    <p class="card-text" th:text="${auction.user.name}"></p>
+                </div>
+            </div>
+            
+            <div class="card mt-2">
+                <form class="card-body" th:action="@{/bids}" method="post" th:object="${bid}">
+                
+                    <div class="form-group">
+                        <label for="nome">New bid:</label>
+                    
+                        <input type="text" th:field="*{value}" class="form-control" placeholder="Value" 
+                                th:classappend="${#fields.hasErrors('value')} ? is-invalid : valid" autofocus="autofocus"/>
+                    
+                        <div class="invalid-feedback" th:errors="*{value}" >
+                            Enter a valid value
+                        </div>
+                    </div>
+                    <div><input type="hidden" th:value="${auction.id}" id="auctionId" name="auctionId"/></div>
+                
+                    <button class="btn btn-outline-primary" id="button-submit" type="submit" role="button">Add bid</button>
+                
+                </form>
+            </div>    
+            
+            <div class="card mt-2" th:if="${not #lists.isEmpty(auction.bids)}">
+                <div class="card-body">
+                    <h5 class="card-title">Bids</h5>
+                    <table id="bids" class="table">
+                        <tr bgcolor="#efefef">
+                            <td>Date</td>
+                            <td>User</td>
+                            <td>Value</td>
+                        </tr>
+                         
+                        <tr th:each="bid : ${auction.bids}">
+                            <td scope="row" th:text="${#temporals.format(bid.bidDate, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${bid.bidUser.name}"></td>
+                            <td th:text="${'US$ ' + #numbers.formatDecimal(bid.bidValue, 1, 'POINT', 2, 'COMMA')}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
     </body>
 </html>

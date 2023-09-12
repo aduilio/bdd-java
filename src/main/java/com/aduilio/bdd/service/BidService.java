@@ -20,12 +20,10 @@ public class BidService {
 	public final UserRepository userRepository;
 	public final AuctionRepository auctionRepository;
 
-	public boolean newBid(final NewBidDto newBid, final String userName) {
+	public boolean newBid(final NewBidDto newBid, final Auction auction, final String userName) {
 
 		final User user = userRepository.getUserByUsername(userName);
-		final Bid bid = newBid.toBid(user);
-
-		final Auction auction = getAuction(newBid.getAuctionId());
+		final Bid bid = newBid.toBid(user, auction);
 
 		if (auction.newBid(bid)) {
 			bidRepository.save(bid);

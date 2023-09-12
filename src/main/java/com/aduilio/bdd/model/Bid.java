@@ -32,7 +32,8 @@ public class Bid {
 	private BigDecimal bidValue;
 
 	@NotNull
-	private LocalDate bidDate;
+	@Builder.Default
+	private LocalDate bidDate = LocalDate.now();
 
 	@OneToOne(fetch = FetchType.EAGER)
 	private User bidUser;

@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
-public class AuctionsControllerTest {
+public class AuctionControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;

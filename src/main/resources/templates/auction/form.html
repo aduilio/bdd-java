@@ -17,8 +17,8 @@
                     <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
                     
                 </div>
-                
-                    <div class="form-group">
+               
+                <div class="form-group">
                     <label for="initialValue">Initial value:</label>
                     <input th:field="*{initialValue}" th:errorclass="is-invalid" class="form-control" placeholder="Initial value"/>
                     <small>Value must be more than 0.1.</small>
