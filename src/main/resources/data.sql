@@ -1,0 +1,2 @@
+INSERT INTO users(username, password, email, role, enabled) VALUES ('admin', '$2a$10$MiEHKF9DzlQHZMCJvZK4NuxnNkWk26IgXLSTjmgwpPObmrBE1HnSC', 'admin@email.com', 'ADMIN', true)
+INSERT INTO users(username, password, email, role, enabled) VALUES ('user', '$2a$10$MiEHKF9DzlQHZMCJvZK4NuxnNkWk26IgXLSTjmgwpPObmrBE1HnSC', 'user@email.com', 'ADMIN', true)

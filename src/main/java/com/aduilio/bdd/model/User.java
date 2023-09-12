@@ -13,13 +13,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")
-@RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 public class User {
@@ -33,7 +33,7 @@ public class User {
 	@NotBlank
 	@Column(name = "username")
 	@EqualsAndHashCode.Include
-	private final String name;
+	private String name;
 
 	@NotNull
 	@NotBlank
