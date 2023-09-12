@@ -1,0 +1,45 @@
+<html>
+    <head th:replace="~{base :: head}">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div th:replace="~{base :: logo}"></div>
+        
+        <div class="container">
+            <div th:replace="~{base :: title('Auctions', '')}"></div>
+            
+            <div class="alert alert-primary" role="alert" th:if="${message}">
+                  <span th:text="${message}"></span>
+            </div>
+    
+        <table class="table table-hover">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Opening date</th>
+                <th scope="col">Initial value</th>
+                <th scope="col">User</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            <tr th:each="auction : ${auctions}" >
+                <td class="align-middle" scope="row" th:text="${auction.name}">Name</td>
+                <td class="align-middle" th:text="${#temporals.format(auction.openingDate, 'dd/MM/yyyy')}"></td>
+                <td class="align-middle" th:text="${auction.initialValue}">Initial value</td>
+                <td class="align-middle" th:text="${auction.user.name}">Username</td>
+                <td sec:authorize="isAuthenticated()" th:if="${auction.user.name != user.name}">
+                    <a class="btn btn-block btn-info" th:href="@{'/auctions/' + ${auction.id}}" >Add a bid</a>
+                </td>
+                <td sec:authorize="isAuthenticated()" th:if="${auction.user.name == user.name} ">
+                    <a class="btn btn-block btn-secondary m-0" th:href="@{'/auctions/' + ${auction.id}} + '/form'">Edit</a>
+                </td>
+            </tr>
+    
+        </table>
+    
+        <br />
+        
+        <a class="btn btn-primary" id="new_auction_link" th:href="@{'/auctions/new'}" role="button" sec:authorize="isAuthenticated()">New auction</a>
+        
+        </div>
+    </body>
+</html>

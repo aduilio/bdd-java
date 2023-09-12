@@ -1,0 +1,48 @@
+<html>
+    <head th:replace="~{base :: head}"></head>
+    <body>
+        <div th:replace="~{base :: logo}"></div>
+        
+        <div class="container">
+            <div th:replace="~{base :: title('New auction', '/auctions')}"></div>
+            
+            <form th:action="@{/auctions}" method="post" th:object="${auction}" class="card-body" >
+            
+                <input th:field="*{id}" type="hidden"/>
+            
+                <div class="form-group">
+                    <label for="nome">Name:</label>
+                    <input th:field="*{name}" th:errorclass="is-invalid" class="form-control" placeholder="Auction name"/>
+                    <small>Enter an expressive name</small>
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                    
+                </div>
+                
+                    <div class="form-group">
+                    <label for="initialValue">Initial value:</label>
+                    <input th:field="*{initialValue}" th:errorclass="is-invalid" class="form-control" placeholder="Initial value"/>
+                    <small>Value must be more than 0.1.</small>
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('initialValue')}" th:errors="*{initialValue}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="dataAbertura">Opening date:</label>
+                    <input id="openingDate" name="openingDate" th:value="*{#temporals.format(openingDate, 'dd/MM/yyyy')}"
+                    th:errorclass="is-invalid" class="form-control" placeholder="Opening date" type="text" />
+                    <small>Enter a date</small>
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('openingDate')}" th:errors="*{openingDate}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="user">User:  </label>
+                    <input th:value="${username}" class="form-control" placeholder="Username" type="text" readonly/>
+                </div>
+                
+                <button class="btn btn-primary" id="button-submit" type="submit" role="button">Save</button>
+                
+            </form>
+                 
+        </div>
+
+    </body>
+</html>
